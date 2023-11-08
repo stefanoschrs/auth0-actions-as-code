@@ -13,7 +13,7 @@ import (
 type Action struct {
 	Id           string `mapstructure:"id"`
 	Name         string `mapstructure:"name"`
-	CodeFilePath string `mapstructure:"codeFilePath"`
+	CodeFilePath string `mapstructure:"code_file_path"`
 	// Optional
 	Dependencies []struct {
 		Name    string `mapstructure:"name"`
@@ -22,17 +22,17 @@ type Action struct {
 	Secrets []struct {
 		Key    string `mapstructure:"key"`
 		Value  string `mapstructure:"value,omitempty"`
-		EnvKey string `mapstructure:"envKey,omitempty"`
+		EnvKey string `mapstructure:"env_key,omitempty"`
 	} `mapstructure:"secrets,omitempty"`
 }
 
 type ActionsConfig struct {
-	PostLogin            []Action `mapstructure:"postLogin"`
-	CredentialsExchange  []Action `mapstructure:"credentialsExchange"`
-	PostChallenge        []Action `mapstructure:"postChallenge"`
-	PreUserRegistration  []Action `mapstructure:"preUserRegistration"`
-	PostUserRegistration []Action `mapstructure:"postUserRegistration"`
-	SendPhoneMessage     []Action `mapstructure:"sendPhoneMessage"`
+	PostLogin            []Action `mapstructure:"post_login"`
+	CredentialsExchange  []Action `mapstructure:"credentials_exchange"`
+	PostChallenge        []Action `mapstructure:"post_challenge"`
+	PreUserRegistration  []Action `mapstructure:"pre_user_registration"`
+	PostUserRegistration []Action `mapstructure:"post_user_registration"`
+	SendPhoneMessage     []Action `mapstructure:"send_phone_message"`
 }
 
 var ActionVersionsMap = map[string]string{
@@ -50,17 +50,21 @@ func main() {
 	viper.AutomaticEnv()
 
 	viper.SetConfigFile("config.yml")
+	if configPath := viper.GetString("INPUT_CONFIG_PATH"); configPath != "" {
+		viper.SetConfigFile(configPath)
+	}
+	fmt.Println("Using config file:", viper.ConfigFileUsed())
 	err := viper.ReadInConfig()
 	if err != nil {
 		log.Fatal(fmt.Errorf("viper.ReadInConfig: %w", err))
 	}
 
 	auth0API, err := management.New(
-		viper.GetString("AUTH0_TENANT_DOMAIN"),
+		viper.GetString("INPUT_AUTH0_TENANT_DOMAIN"),
 		management.WithClientCredentials(
 			context.TODO(),
-			viper.GetString("AUTH0_CLIENT_ID"),
-			viper.GetString("AUTH0_CLIENT_SECRET")),
+			viper.GetString("INPUT_AUTH0_CLIENT_ID"),
+			viper.GetString("INPUT_AUTH0_CLIENT_SECRET")),
 	)
 	if err != nil {
 		log.Fatal(fmt.Errorf("management.New: %w", err))

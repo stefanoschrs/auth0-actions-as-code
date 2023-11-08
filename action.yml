@@ -5,16 +5,16 @@ branding:
   color: 'orange'
   icon: 'star'
 inputs:
-  auth0ClientId:
+  auth0_client_id:
     required: true
     description: 'Auth0 Client ID'
-  auth0ClientSecret:
+  auth0_client_secret:
     required: true
     description: 'Auth0 Client Secret'
-  auth0TenantDomain:
+  auth0_tenant_domain:
     required: true
     description: 'Auth0 Tenant Domain'
-  configPath:
+  config_path:
     required: false
     description: 'Path to the config file'
     default: 'config.yml'

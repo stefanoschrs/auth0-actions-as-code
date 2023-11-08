@@ -27,20 +27,20 @@
 
 ```yaml
 actions:
-  postLogin:
+  post_login:
       - id: '4cf1a082-ef6f-460c-9ce2-ae6f3b027a68'
         name: 'My Very First Post-Login Action'
-        codeFilePath: './post-login.js'
+        code_file_path: './post-login.js'
 ```
 
 2. Advanced use case
 
 ```yaml
 actions:
-  postLogin:
+  post_login:
     - id: '4cf1a082-ef6f-460c-9ce2-ae6f3b027a68'
       name: 'My Very First Post-Login Action'
-      codeFilePath: './post-login.js'
+      code_file_path: './post-login.js'
       dependencies:
         - name: 'axios'
         - name: 'lodash'
@@ -49,34 +49,33 @@ actions:
         - key: 'API_BASE'
           value: 'https://api.example.com'
         - key: 'API_TOKEN'
-          envKey: 'SOME_TOKEN_KEY_IN_GITHUB_SECRETS'
+          env_key: 'SOME_TOKEN_KEY_IN_GITHUB_SECRETS'
 ```
 
 ## Inputs
 
-| Name                | Description                                               | Required | Default    |
-|---------------------|-----------------------------------------------------------|----------|------------|
-| `auth0ClientId`     | The Auth0 Client ID.                                      | **✔️**   |            |
-| `auth0ClientSecret` | The Auth0 Client Secret.                                  | **✔️**   |            |
-| `auth0TenantDomain` | The Auth0 Tenant Domain.                                  | **✔️**   |            |
-| `configPath`        | The path to the Auth0 Actions-As-Code configuration file. |          | config.yml |
+| Name                  | Description                                               | Required | Default    |
+|-----------------------|-----------------------------------------------------------|----------|------------|
+| `auth0_client_id`     | The Auth0 Client ID.                                      | **✔️**   |            |
+| `auth0_client_secret` | The Auth0 Client Secret.                                  | **✔️**   |            |
+| `auth0_tenant_domain` | The Auth0 Tenant Domain.                                  | **✔️**   |            |
+| `config_path`         | The path to the Auth0 Actions-As-Code configuration file. |          | config.yml |
 
 ## Example usage
 
 ```yaml
 uses: stefanoschrs/auth0-actions-as-code
-env:
-   AUTH0_CLIENT_ID: ${{ secrets.AUTH0_CLIENT_ID }}
-   AUTH0_CLIENT_SECRET: ${{ secrets.AUTH0_CLIENT_SECRET }}
-   AUTH0_TENANT_DOMAIN: ${{ secrets.AUTH0_TENANT_DOMAIN }}
+with:
+   auth0_client_id: ${{ secrets.AUTH0_CLIENT_ID }}
+   auth0_client_secret: ${{ secrets.AUTH0_CLIENT_SECRET }}
+   auth0_tenant_domain: ${{ secrets.AUTH0_TENANT_DOMAIN }}
 ```
 
 ```yaml
 uses: stefanoschrs/auth0-actions-as-code
 with:
-  configPath: ./path-to-config.yml
-env:
-   AUTH0_CLIENT_ID: ${{ secrets.AUTH0_CLIENT_ID }}
-   AUTH0_CLIENT_SECRET: ${{ secrets.AUTH0_CLIENT_SECRET }}
-   AUTH0_TENANT_DOMAIN: ${{ secrets.AUTH0_TENANT_DOMAIN }}
+  auth0_client_id: ${{ secrets.AUTH0_CLIENT_ID }}
+  auth0_client_secret: ${{ secrets.AUTH0_CLIENT_SECRET }}
+  auth0_tenant_domain: ${{ secrets.AUTH0_TENANT_DOMAIN }}
+  config_path: ./path-to-config.yml
 ```
