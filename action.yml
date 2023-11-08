@@ -1,16 +1,23 @@
-name: 'Hello World'
-description: 'Greet someone and record the time'
+name: 'Auth0 Actions-As-Code'
+description: 'Deploy Auth0 actions'
+author: 'Stefanos Chrs'
+branding:
+  color: 'orange'
+  icon: 'star'
 inputs:
-  who-to-greet:  # id of input
-    description: 'Who to greet'
+  auth0ClientId:
     required: true
-    default: 'World'
-outputs:
-  time: # id of output
-    description: 'The time we greeted you'
+    description: 'Auth0 Client ID'
+  auth0ClientSecret:
+    required: true
+    description: 'Auth0 Client Secret'
+  auth0TenantDomain:
+    required: true
+    description: 'Auth0 Tenant Domain'
+  configPath:
+    required: false
+    description: 'Path to the config file'
+    default: 'config.yml'
 runs:
   using: 'docker'
   image: 'Dockerfile'
-  args:
-    - ${{ inputs.who-to-greet }}
-
