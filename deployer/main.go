@@ -44,8 +44,6 @@ var ActionVersionsMap = map[string]string{
 	"send-phone-message":              "v2",
 }
 
-var ActionsRuntime = "node18-actions"
-
 func main() {
 	viper.AutomaticEnv()
 
@@ -72,6 +70,11 @@ func main() {
 
 	var actionsConfig ActionsConfig
 	err = viper.UnmarshalKey("actions", &actionsConfig)
+
+	ActionsRuntime := viper.GetString("INPUT_ACTIONS_RUNTIME")
+	if ActionsRuntime == "" {
+		ActionsRuntime = "node22"
+	}
 
 	for trigger, actions := range map[string][]Action{
 		management.ActionTriggerPostLogin: actionsConfig.PostLogin,
