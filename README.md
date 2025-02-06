@@ -52,6 +52,10 @@ actions:
           env_key: 'SOME_TOKEN_KEY_IN_GITHUB_SECRETS'
 ```
 
+**Note:** secrets not defined in the config.yml will be removed from your Auth0 trigger on deployment.
+
+**Note:** be sure to expose `SOME_TOKEN_KEY_IN_GITHUB_SECRETS` as an environment variable to this action.
+
 ## Inputs
 
 | Name                  | Description                                               | Required | Default    |
@@ -60,11 +64,14 @@ actions:
 | `auth0_client_secret` | The Auth0 Client Secret.                                  | **✔️**   |            |
 | `auth0_tenant_domain` | The Auth0 Tenant Domain.                                  | **✔️**   |            |
 | `config_path`         | The path to the Auth0 Actions-As-Code configuration file. |          | config.yml |
+| `actions_runtime`     | The runtime version of your action.                       |          | node22     |
 
 ## Example usage
 
+**Note:** make sure to update your action version to the latest release.
+
 ```yaml
-uses: stefanoschrs/auth0-actions-as-code
+uses: stefanoschrs/auth0-actions-as-code@v1.0.1
 with:
    auth0_client_id: ${{ secrets.AUTH0_CLIENT_ID }}
    auth0_client_secret: ${{ secrets.AUTH0_CLIENT_SECRET }}
@@ -72,10 +79,13 @@ with:
 ```
 
 ```yaml
-uses: stefanoschrs/auth0-actions-as-code
+uses: stefanoschrs/auth0-actions-as-code@v1.0.1
+env:
+  SOME_TOKEN_KEY_IN_GITHUB_SECRETS: ${{ secrets.SOME_TOKEN_KEY_IN_GITHUB_SECRETS }}
 with:
   auth0_client_id: ${{ secrets.AUTH0_CLIENT_ID }}
   auth0_client_secret: ${{ secrets.AUTH0_CLIENT_SECRET }}
   auth0_tenant_domain: ${{ secrets.AUTH0_TENANT_DOMAIN }}
   config_path: ./path-to-config.yml
+  actions_runtime: 'node22'
 ```
