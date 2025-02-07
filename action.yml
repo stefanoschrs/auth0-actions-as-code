@@ -18,6 +18,10 @@ inputs:
     required: false
     description: 'Path to the config file'
     default: 'config.yml'
+  actions_runtime:
+    required: false
+    description: 'Runtime version of your action'
+    default: 'node22'
 runs:
   using: 'docker'
   image: 'Dockerfile'
